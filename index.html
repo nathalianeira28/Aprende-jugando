@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprende Jugando</title>
+  <link rel="icon" href="assets/icons/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <!-- Decoración de fondo (estrellas, números, figuras que flotan) -->
+  <div id="fondo-decorativo" aria-hidden="true"></div>
+
+  <!-- Barra superior: aparece en todas las pantallas menos la bienvenida -->
+  <header id="barra" class="oculto">
+    <button id="btn-logo" class="barra-logo" title="Ir al inicio">
+      <img src="assets/icons/logo.svg" alt="">
+      <span>Aprende <b>Jugando</b></span>
+    </button>
+    <nav id="migas" aria-label="Ruta"></nav>
+    <div class="barra-acciones">
+      <button id="btn-guia" class="btn-icono" title="Guía para el docente">📋<span>Guía docente</span></button>
+      <button id="btn-sonido" class="btn-icono" title="Activar o desactivar sonidos">🔊<span>Sonido</span></button>
+      <button id="btn-pantalla" class="btn-icono" title="Pantalla completa">⛶<span>Pantalla</span></button>
+    </div>
+  </header>
+
+  <!-- Aquí se dibuja cada pantalla -->
+  <main id="pantalla"></main>
+
+  <!-- Mensajes de felicitación -->
+  <div id="mensaje" class="mensaje" aria-live="polite"></div>
+  <div id="confeti" aria-hidden="true"></div>
+
+  <!-- Scripts: el orden importa. No se usan módulos para que funcione con doble clic (file://) -->
+  <script src="js/utilidades.js"></script>
+  <script src="js/sonidos.js"></script>
+  <script src="js/dibujos.js"></script>
+  <script src="js/miniaturas.js"></script>
+  <script src="js/generadores.js"></script>
+
+  <script src="js/juegos/motor.js"></script>
+  <script src="js/juegos/seleccion-multiple.js"></script>
+  <script src="js/juegos/memoria.js"></script>
+  <script src="js/juegos/sopa-letras.js"></script>
+  <script src="js/juegos/crucigrama.js"></script>
+  <script src="js/juegos/relacionar.js"></script>
+  <script src="js/juegos/ordenar.js"></script>
+  <script src="js/juegos/clasificar.js"></script>
+  <script src="js/juegos/revueltas.js"></script>
+  <script src="js/juegos/ruleta.js"></script>
+  <script src="js/juegos/rompecabezas.js"></script>
+  <script src="js/juegos/operaciones.js"></script>
+  <script src="js/juegos/laberinto.js"></script>
+  <script src="js/juegos/diferencias.js"></script>
+  <script src="js/juegos/identificar.js"></script>
+  <script src="js/juegos/teclado.js"></script>
+
+  <script src="js/contenidos.js"></script>
+  <script src="js/contenidos/matematicas.js"></script>
+  <script src="js/contenidos/lengua.js"></script>
+  <script src="js/contenidos/naturales.js"></script>
+  <script src="js/contenidos/sociales.js"></script>
+  <script src="js/contenidos/ingles.js"></script>
+  <script src="js/contenidos/tecnologia.js"></script>
+  <script src="js/contenidos/arte.js"></script>
+
+  <script src="js/navegacion.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
