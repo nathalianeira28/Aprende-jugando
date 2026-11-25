@@ -1,10 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs><clipPath id="marco"><rect x="4" y="4" width="112" height="112" rx="30"/></clipPath></defs>
   <rect x="4" y="4" width="112" height="112" rx="30" fill="#FFD43B"/>
+  <g clip-path="url(#marco)">
+    <!-- alas (aletean) -->
+    <ellipse class="ala-izq" cx="26" cy="104" rx="11" ry="22" fill="#8c5a2b"/>
+    <ellipse class="ala-der" cx="94" cy="104" rx="11" ry="22" fill="#8c5a2b"/>
+    <!-- cuerpo y barriga -->
+    <ellipse cx="60" cy="112" rx="37" ry="30" fill="#a9703f"/>
+    <ellipse cx="60" cy="116" rx="23" ry="20" fill="#ffe8cc"/>
+    <g class="cabeza">
+      <ellipse cx="60" cy="70" rx="41" ry="36" fill="#a9703f"/>
+      <ellipse cx="60" cy="71" rx="34" ry="24" fill="#f5d0a9"/>
+      <g class="ojos">
+        <circle cx="46" cy="69" r="14" fill="#fff" stroke="#8c5a2b" stroke-width="3"/>
+        <circle cx="74" cy="69" r="14" fill="#fff" stroke="#8c5a2b" stroke-width="3"/>
+        <circle cx="48" cy="71" r="7" fill="#212529"/><circle cx="72" cy="71" r="7" fill="#212529"/>
+        <circle cx="50.5" cy="68" r="2.5" fill="#fff"/><circle cx="74.5" cy="68" r="2.5" fill="#fff"/>
+      </g>
+      <path d="M55 82 L65 82 L60 91 Z" fill="#fd7e14" stroke="#e8590c" stroke-width="1.2" stroke-linejoin="round"/>
+      <circle cx="31" cy="83" r="5" fill="#ff8787" opacity=".6"/><circle cx="89" cy="83" r="5" fill="#ff8787" opacity=".6"/>
+      <rect x="41" y="34" width="38" height="11" rx="2" fill="#212529"/>
+      <polygon points="60,18 100,29 60,40 20,29" fill="#343a40"/>
+      <circle cx="60" cy="29" r="2.5" fill="#fcc419"/>
+      <path d="M60 29 L93 34" stroke="#fcc419" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <g class="borla"><path d="M93 34 L94 52" stroke="#fcc419" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M90.5 51 L97.5 51 L96 61 L92 61 Z" fill="#fcc419"/></g>
+    </g>
+  </g>
   <rect x="4" y="4" width="112" height="112" rx="30" fill="none" stroke="#F59F00" stroke-width="6"/>
-  <!-- libro abierto -->
-  <path d="M22 44 Q41 36 60 46 L60 92 Q41 82 22 90 Z" fill="#fff" stroke="#1C7ED6" stroke-width="5" stroke-linejoin="round"/>
-  <path d="M98 44 Q79 36 60 46 L60 92 Q79 82 98 90 Z" fill="#fff" stroke="#E03131" stroke-width="5" stroke-linejoin="round"/>
-  <path d="M31 56 Q41 52 51 57 M31 66 Q41 62 51 67 M69 57 Q79 52 89 56 M69 67 Q79 62 89 66" stroke="#ADB5BD" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <!-- estrella -->
-  <path d="M60 10 L66 24 L81 25 L69 34 L73 49 L60 41 L47 49 L51 34 L39 25 L54 24 Z" fill="#fff" stroke="#F59F00" stroke-width="4" stroke-linejoin="round"/>
 </svg>

@@ -7,46 +7,94 @@
    ========================================================= */
 AJ.dibujos = {};
 
-/* ---------- Ilustración de la pantalla de bienvenida ---------- */
+/* ---------- Ilustración de la pantalla de bienvenida ----------
+   Búho profesor sobre una pila de libros, con un arcoíris y las 7
+   materias flotando alrededor. Tiene animaciones suaves (CSS). */
 AJ.dibujos.bienvenida = function () {
-  return '' +
-  '<svg viewBox="0 0 600 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Libro abierto con lápiz, estrellas, números y figuras">' +
-  '<circle cx="300" cy="280" r="220" fill="#fff3bf"/>' +
-  '<circle cx="300" cy="280" r="170" fill="#ffe066" opacity=".45"/>' +
-  // globo terráqueo
-  '<g transform="translate(445 120)"><circle r="52" fill="#4dabf7"/><path d="M-30 -30 q20 10 10 30 q-15 10 -5 25 q10 5 0 25 M10 -48 q-5 20 15 25 q20 0 25 15" fill="#69db7c" stroke="#2f9e44" stroke-width="3"/><circle r="52" fill="none" stroke="#1c7ed6" stroke-width="5"/><rect x="-6" y="52" width="12" height="20" fill="#868e96"/><rect x="-30" y="70" width="60" height="10" rx="5" fill="#495057"/></g>' +
-  // bloques ABC
-  '<g transform="translate(70 330)"><rect width="70" height="70" rx="12" fill="#f03e3e"/><text x="35" y="50" font-size="44" font-weight="900" text-anchor="middle" fill="#fff" font-family="Arial Black,Arial">A</text></g>' +
-  '<g transform="translate(140 330)"><rect width="70" height="70" rx="12" fill="#1c7ed6"/><text x="35" y="50" font-size="44" font-weight="900" text-anchor="middle" fill="#fff" font-family="Arial Black,Arial">B</text></g>' +
-  '<g transform="translate(105 262)"><rect width="70" height="70" rx="12" fill="#2f9e44"/><text x="35" y="50" font-size="44" font-weight="900" text-anchor="middle" fill="#fff" font-family="Arial Black,Arial">C</text></g>' +
-  // libro abierto
-  '<g transform="translate(300 330)">' +
-  '<path d="M-190 -60 Q-95 -110 0 -55 L0 95 Q-95 45 -190 95 Z" fill="#fff" stroke="#1c7ed6" stroke-width="10" stroke-linejoin="round"/>' +
-  '<path d="M190 -60 Q95 -110 0 -55 L0 95 Q95 45 190 95 Z" fill="#fff" stroke="#f03e3e" stroke-width="10" stroke-linejoin="round"/>' +
-  '<path d="M-160 -30 q60 -25 130 0 M-160 0 q60 -25 130 0 M-160 30 q60 -25 130 0" stroke="#ced4da" stroke-width="7" fill="none" stroke-linecap="round"/>' +
-  '<text x="95" y="20" font-size="58" font-weight="900" text-anchor="middle" fill="#7048e8" font-family="Arial Black,Arial">1+2</text>' +
-  '<path d="M-190 95 Q-95 45 0 95 Q95 45 190 95 L190 112 Q95 62 0 112 Q-95 62 -190 112 Z" fill="#fcc419"/>' +
-  '</g>' +
-  // lápiz
-  '<g transform="translate(470 300) rotate(35)"><rect x="-14" y="-110" width="28" height="160" fill="#fcc419" stroke="#e67700" stroke-width="4"/><rect x="-14" y="-128" width="28" height="22" rx="5" fill="#f783ac"/><rect x="-14" y="-110" width="28" height="10" fill="#adb5bd"/><path d="M-14 50 L0 85 L14 50 Z" fill="#ffd8a8" stroke="#e67700" stroke-width="4"/><path d="M-5 72 L0 85 L5 72 Z" fill="#343a40"/></g>' +
-  // estrellas y figuras
-  estrella(120, 110, 34, '#fcc419') + estrella(330, 60, 26, '#ff922b') + estrella(540, 260, 20, '#f783ac') +
-  '<circle cx="215" cy="150" r="22" fill="#69db7c"/>' +
-  '<rect x="380" y="200" width="40" height="40" rx="6" fill="#748ffc" transform="rotate(15 400 220)"/>' +
-  '<path d="M520 420 l30 -52 l30 52 z" fill="#ff8787"/>' +
-  '<text x="40" y="220" font-size="48" font-weight="900" fill="#1098ad" font-family="Arial Black,Arial">3</text>' +
-  '<text x="530" y="160" font-size="44" font-weight="900" fill="#d6336c" font-family="Arial Black,Arial">×</text>' +
-  '<text x="250" y="120" font-size="40" font-weight="900" fill="#2f9e44" font-family="Arial Black,Arial">a</text>' +
-  '</svg>';
-
-  function estrella(cx, cy, r, color) {
-    var p = [];
-    for (var i = 0; i < 10; i++) {
-      var ang = Math.PI / 5 * i - Math.PI / 2, rad = i % 2 ? r * 0.45 : r;
-      p.push((cx + Math.cos(ang) * rad).toFixed(1) + ',' + (cy + Math.sin(ang) * rad).toFixed(1));
-    }
-    return '<polygon points="' + p.join(' ') + '" fill="' + color + '" stroke="#fff" stroke-width="4" stroke-linejoin="round"/>';
+  var cx = 300, cy = 300;
+  function estrellita(x, y, r, c) {
+    return '<path d="M' + x + ' ' + (y - r) + ' Q' + x + ' ' + y + ' ' + (x + r) + ' ' + y + ' Q' + x + ' ' + y + ' ' + x + ' ' + (y + r) + ' Q' + x + ' ' + y + ' ' + (x - r) + ' ' + y + ' Q' + x + ' ' + y + ' ' + x + ' ' + (y - r) + 'Z" fill="' + c + '"/>';
   }
+  // Las 7 materias, en el mismo orden y color que la app
+  var materias = [['🔢', '#1c7ed6'], ['📖', '#e03131'], ['🌿', '#2f9e44'], ['🌎', '#e8590c'], ['💬', '#7048e8'], ['💻', '#0c8599'], ['🎨', '#c2255c']];
+  var burbujas = '';
+  materias.forEach(function (m, i) {
+    var ang = (195 + i * 25) * Math.PI / 180, x = cx + 230 * Math.cos(ang), y = cy + 230 * Math.sin(ang);
+    burbujas += '<g class="flota" style="animation-delay:' + (i * 0.35) + 's">' +
+      '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="36" fill="#fff" stroke="' + m[1] + '" stroke-width="6"/>' +
+      '<text x="' + x.toFixed(1) + '" y="' + (y + 12).toFixed(1) + '" font-size="34" text-anchor="middle">' + m[0] + '</text></g>';
+  });
+  // Arcoíris (medio círculo detrás del búho)
+  var colores = ['#ff6b6b', '#ffa94d', '#ffd43b', '#69db7c', '#4dabf7', '#9775fa'], arco = '';
+  colores.forEach(function (c, i) {
+    var r = 182 - i * 11;
+    arco += '<path d="M' + (cx - r) + ' ' + cy + ' A' + r + ' ' + r + ' 0 0 1 ' + (cx + r) + ' ' + cy + '" fill="none" stroke="' + c + '" stroke-width="11" stroke-linecap="round"/>';
+  });
+
+  return '' +
+  '<svg viewBox="0 0 600 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Búho profesor sobre libros, rodeado de las materias">' +
+  '<style>' +
+  '.flota{animation:flotar 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}' +
+  '@keyframes flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}' +
+  '.ojos{animation:parpadeo 5s infinite;transform-box:fill-box;transform-origin:center}' +
+  '@keyframes parpadeo{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}' +
+  '.brillo{animation:brillar 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}' +
+  '@keyframes brillar{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.6);opacity:.6}}' +
+  '</style>' +
+  // Fondo suave
+  '<circle cx="300" cy="290" r="240" fill="#fff3bf"/>' +
+  '<circle cx="300" cy="290" r="195" fill="#ffec99" opacity=".55"/>' +
+  // Arcoíris y burbujas de materias
+  '<g opacity=".95">' + arco + '</g>' +
+  '<path d="M' + (cx - 230) + ' ' + cy + ' A230 230 0 0 1 ' + (cx + 230) + ' ' + cy + '" fill="none" stroke="#ced4da" stroke-width="3" stroke-dasharray="4 10" stroke-linecap="round"/>' +
+  burbujas +
+  // Pila de libros
+  '<g>' +
+  '<rect x="150" y="470" width="300" height="38" rx="8" fill="#2f9e44"/><rect x="160" y="476" width="280" height="8" rx="4" fill="#fff" opacity=".9"/><rect x="150" y="470" width="22" height="38" rx="6" fill="#2b8a3e"/>' +
+  '<rect x="172" y="434" width="262" height="38" rx="8" fill="#e03131"/><rect x="182" y="440" width="242" height="8" rx="4" fill="#fff" opacity=".9"/><rect x="412" y="434" width="22" height="38" rx="6" fill="#c92a2a"/>' +
+  '<rect x="188" y="398" width="228" height="38" rx="8" fill="#1c7ed6"/><rect x="198" y="404" width="208" height="8" rx="4" fill="#fff" opacity=".9"/><rect x="188" y="398" width="22" height="38" rx="6" fill="#1864ab"/>' +
+  '<text x="300" y="429" text-anchor="middle" font-size="17" font-weight="900" fill="#fff" font-family="Arial Black,Arial">A B C</text>' +
+  '</g>' +
+  // Búho
+  '<g>' +
+  // patas
+  '<g fill="#fd7e14"><ellipse cx="262" cy="398" rx="9" ry="7"/><ellipse cx="276" cy="400" rx="9" ry="7"/><ellipse cx="324" cy="400" rx="9" ry="7"/><ellipse cx="338" cy="398" rx="9" ry="7"/></g>' +
+  // cuerpo
+  '<ellipse cx="300" cy="300" rx="104" ry="104" fill="#a9703f"/>' +
+  // alas
+  '<ellipse cx="203" cy="315" rx="30" ry="62" fill="#8c5a2b" transform="rotate(18 203 315)"/>' +
+  '<ellipse cx="397" cy="315" rx="30" ry="62" fill="#8c5a2b" transform="rotate(-18 397 315)"/>' +
+  // barriga con plumitas
+  '<ellipse cx="300" cy="335" rx="64" ry="62" fill="#ffe8cc"/>' +
+  '<path d="M270 320 q8 9 16 0 M298 320 q8 9 16 0 M284 342 q8 9 16 0 M312 342 q8 9 16 0 M270 364 q8 9 16 0 M298 364 q8 9 16 0" stroke="#e8b98a" stroke-width="4" fill="none" stroke-linecap="round"/>' +
+  // orejitas
+  '<path d="M222 222 L232 180 L258 212 Z" fill="#8c5a2b"/><path d="M378 222 L368 180 L342 212 Z" fill="#8c5a2b"/>' +
+  // cara
+  '<ellipse cx="300" cy="262" rx="88" ry="58" fill="#f5d0a9"/>' +
+  // ojos (parpadean)
+  '<g class="ojos">' +
+  '<circle cx="263" cy="258" r="35" fill="#fff" stroke="#8c5a2b" stroke-width="5"/><circle cx="337" cy="258" r="35" fill="#fff" stroke="#8c5a2b" stroke-width="5"/>' +
+  '<circle cx="268" cy="262" r="17" fill="#212529"/><circle cx="332" cy="262" r="17" fill="#212529"/>' +
+  '<circle cx="274" cy="255" r="6" fill="#fff"/><circle cx="338" cy="255" r="6" fill="#fff"/>' +
+  '</g>' +
+  // pico y mejillas
+  '<path d="M288 288 L312 288 L300 310 Z" fill="#fd7e14" stroke="#e8590c" stroke-width="2" stroke-linejoin="round"/>' +
+  '<circle cx="226" cy="294" r="12" fill="#ff8787" opacity=".6"/><circle cx="374" cy="294" r="12" fill="#ff8787" opacity=".6"/>' +
+  // birrete
+  '<rect x="252" y="196" width="96" height="24" rx="4" fill="#212529"/>' +
+  '<polygon points="300,158 396,184 300,210 204,184" fill="#343a40"/>' +
+  '<circle cx="300" cy="184" r="5" fill="#fcc419"/>' +
+  '<path d="M300 184 L378 196 L380 236" stroke="#fcc419" stroke-width="4" fill="none" stroke-linecap="round"/>' +
+  '<path d="M372 234 L388 234 L384 258 L376 258 Z" fill="#fcc419"/>' +
+  // lápiz en el ala derecha
+  '<g transform="translate(415 318) rotate(28)"><rect x="-9" y="-78" width="18" height="96" fill="#fcc419" stroke="#e67700" stroke-width="3"/><rect x="-9" y="-92" width="18" height="16" rx="4" fill="#f783ac"/><rect x="-9" y="-78" width="18" height="7" fill="#adb5bd"/><path d="M-9 18 L0 40 L9 18 Z" fill="#ffd8a8" stroke="#e67700" stroke-width="3" stroke-linejoin="round"/><path d="M-3 32 L0 40 L3 32 Z" fill="#343a40"/></g>' +
+  '</g>' +
+  // destellos
+  '<g class="brillo">' + estrellita(92, 380, 16, '#fcc419') + '</g>' +
+  '<g class="brillo" style="animation-delay:.8s">' + estrellita(510, 382, 13, '#f783ac') + '</g>' +
+  '<g class="brillo" style="animation-delay:1.5s">' + estrellita(470, 450, 10, '#4dabf7') + '</g>' +
+  '<g class="brillo" style="animation-delay:.4s">' + estrellita(122, 460, 10, '#69db7c') + '</g>' +
+  '</svg>';
 };
 
 /* ---------- Ilustraciones de las tarjetas de grado ---------- */

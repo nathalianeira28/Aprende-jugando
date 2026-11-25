@@ -45,9 +45,8 @@ AJ.nav = (function () {
     var titulo2 = el('span', { class: 'l2' }, 'Jugando'.split('').map(function (l) { return el('span', {}, l); }));
     pantalla.appendChild(el('section', { class: 'bienvenida' }, [
       el('div', {}, [
-        el('img', { class: 'logo-grande', src: 'assets/icons/logo.svg', alt: 'Logo Aprende Jugando' }),
+        el('img', { class: 'logo-grande', src: 'assets/icons/logo-animado.svg', alt: 'Logo Aprende Jugando' }),
         el('h1', { class: 'titulo-app' }, [el('span', { class: 'l1' }, 'Aprende'), titulo2]),
-        el('p', { class: 'lema' }, 'Juegos educativos para aprender divirtiéndonos en el salón de clases. De primero a quinto de primaria.'),
         el('button', { class: 'btn gigante naranja', onclick: function () { AJ.sonido.tocar('clic'); ir('grados'); } }, '▶ COMENZAR'),
         el('div', { class: 'chips' }, [
           el('span', { class: 'chip' }, '🔢 Matemáticas'), el('span', { class: 'chip' }, '📖 Lengua'), el('span', { class: 'chip' }, '🌿 Naturales'),
@@ -56,7 +55,8 @@ AJ.nav = (function () {
         el('p', { class: 'pie-bienvenida' }, [
           'Funciona sin internet · ',
           el('a', { onclick: function () { ir('guia'); } }, '📋 Guía para el docente')
-        ])
+        ]),
+        el('p', { class: 'autora' }, ['✨ Creado por ', el('b', {}, 'Leszlie Nathalia Neira')])
       ]),
       el('div', { class: 'ilustracion-bienvenida', html: AJ.dibujos.bienvenida() })
     ]));
