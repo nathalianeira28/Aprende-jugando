@@ -10,7 +10,9 @@ AJ.generadores = (function () {
   var n = function (x) { return AJ.util.num(x); };
   var nombres = ['Sofía', 'Mateo', 'Valentina', 'Santiago', 'Isabella', 'Samuel', 'Mariana', 'Juan José', 'Luciana', 'Emiliano', 'Salomé', 'Jerónimo'];
   var objetos = ['🍎', '⭐', '🐟', '🎈', '🌸', '🚗', '🐞', '🍓', '⚽', '🐥'];
-  function repetir(e, k) { var s = ''; for (var i = 0; i < k; i++) s += e; return s; }
+  // Cada 5 dibujos se pone un separador invisible (​): en el computador se ven
+  // todos seguidos, y en el celular bajan de línea en grupos de 5 si no caben.
+  function repetir(e, k) { var s = ''; for (var i = 0; i < k; i++) s += (i && i % 5 === 0 ? '​' : '') + e; return s; }
   function mcd(a, b) { return b ? mcd(b, a % b) : a; }
   function dec(x) { return Math.round(x * 100) / 100; }
 

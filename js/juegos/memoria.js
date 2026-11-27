@@ -20,7 +20,9 @@ AJ.registrarJuego('memoria', {
     });
     cartas = U.barajar(cartas);
     var n = cartas.length, cols = n <= 8 ? 4 : (n <= 12 ? 6 : 8);
-    var tablero = el('div', { class: 'tablero-memoria', style: { 'grid-template-columns': 'repeat(' + cols + ', 1fr)', 'max-width': (cols * 160) + 'px' } });
+    // En el celular se usan menos columnas (ver estilos.css) para que las cartas queden grandes
+    var colsMovil = n <= 12 ? 3 : 4;
+    var tablero = el('div', { class: 'tablero-memoria', style: { '--cols': cols, '--cols-movil': colsMovil, 'max-width': (cols * 160) + 'px' } });
     var abiertas = [], bloqueo = false, encontradas = 0, desaciertos = 0;
     ctx.total(pares.length);
 

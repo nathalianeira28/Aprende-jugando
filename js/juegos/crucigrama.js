@@ -58,13 +58,20 @@ AJ.registrarJuego('crucigrama', {
       }
       return { celdas: celdas, puestas: puestas };
     }
+    // Se prueban varias distribuciones y se elige la que pone más palabras y,
+    // entre esas, la más compacta (así cabe mejor en la pantalla del celular).
+    function medida(res) {
+      var rs = [], cs = [];
+      Object.keys(res.celdas).forEach(function (k) { var rc = k.split(',').map(Number); rs.push(rc[0]); cs.push(rc[1]); });
+      return Math.max(Math.max.apply(null, rs) - Math.min.apply(null, rs), Math.max.apply(null, cs) - Math.min.apply(null, cs));
+    }
     var mejor = null;
-    for (var t = 0; t < 30; t++) {
+    for (var t = 0; t < 60; t++) {
       var orden = U.barajar(entrada);
       orden.sort(function (a, b) { return b.palabra.length - a.palabra.length + (Math.random() - .5) * 3; });
       var res = generar(orden);
-      if (!mejor || res.puestas.length > mejor.puestas.length) mejor = res;
-      if (mejor.puestas.length === entrada.length) break;
+      res.medida = medida(res);
+      if (!mejor || res.puestas.length > mejor.puestas.length || (res.puestas.length === mejor.puestas.length && res.medida < mejor.medida)) mejor = res;
     }
 
     // ---------- 2. Normalizar coordenadas y numerar ----------
@@ -77,7 +84,7 @@ AJ.registrarJuego('crucigrama', {
     palabras.forEach(function (p) { var k = p.r + ',' + p.c; if (!numeros[k]) numeros[k] = ++n; p.num = numeros[k]; });
 
     // ---------- 3. Dibujar ----------
-    var tabla = el('div', { class: 'cruci', style: { 'grid-template-columns': 'repeat(' + cols + ', auto)' } });
+    var tabla = el('div', { class: 'cruci', style: { 'grid-template-columns': 'repeat(' + cols + ', auto)', '--cols': cols } });
     var mapa = {};
     for (var r = 0; r < filas; r++) for (var c = 0; c < cols; c++) {
       var k = (r + minR) + ',' + (c + minC);

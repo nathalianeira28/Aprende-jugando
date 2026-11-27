@@ -30,6 +30,8 @@ AJ.nav = (function () {
       if (i === lista.length - 1) migas.appendChild(el('span', { class: 'actual' }, m[0]));
       else migas.appendChild(el('a', { href: '#' + m[1] }, m[0]));
     });
+    // En el celular la ruta va en una línea que se desliza: mostrar el final (la pantalla actual)
+    migas.scrollLeft = migas.scrollWidth;
   }
 
   function nuevaPantalla(conBarra) {

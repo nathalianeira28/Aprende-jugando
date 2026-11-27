@@ -56,7 +56,7 @@ AJ.registrarJuego('sopa', {
 
     // ---- Dibujar ----
     var colores = ['#fa5252', '#228be6', '#40c057', '#be4bdb', '#fd7e14', '#15aabf', '#e64980', '#7950f2', '#82c91e', '#fab005'];
-    var tabla = el('div', { class: 'sopa', style: { 'grid-template-columns': 'repeat(' + tam + ', auto)' } });
+    var tabla = el('div', { class: 'sopa', style: { 'grid-template-columns': 'repeat(' + tam + ', auto)', '--tam': tam } });
     var celdas = [];
     for (r = 0; r < tam; r++) {
       celdas.push([]);

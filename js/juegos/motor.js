@@ -23,16 +23,18 @@ AJ.motor = (function () {
   var EMO_ANIMAR = ['🤔', '💡', '🙂', '🔍'];
 
   /** Muestra un mensaje flotante de retroalimentación. */
+  // El letrero muestra solo el aviso corto (¡Genial!, ¡Casi lo consigues!…).
+  // La explicación (detalle) ya no se muestra: no alcanzaba a leerse.
   function mensaje(titulo, detalle, tipo, emoji) {
     var caja = document.getElementById('mensaje');
     caja.className = 'mensaje' + (tipo === 'casi' ? ' casi' : '');
     caja.innerHTML = '';
     caja.appendChild(el('span', { class: 'emo' }, emoji || '🌟'));
-    caja.appendChild(el('div', {}, [titulo, detalle ? el('small', {}, detalle) : null]));
+    caja.appendChild(el('div', {}, titulo));
     void caja.offsetWidth;
     caja.classList.add('ver');
     clearTimeout(timerMensaje);
-    var dura = 1600 + (detalle ? Math.min(5000, detalle.length * 45) : 0);
+    var dura = 1600;
     timerMensaje = setTimeout(function () { caja.classList.remove('ver'); }, dura);
   }
 

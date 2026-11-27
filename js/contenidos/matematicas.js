@@ -20,6 +20,7 @@ AJ.materia({
     /* ======================= PRIMERO ======================= */
     1: [
       { tipo: 'operaciones', titulo: 'Cuenta los objetos', icono: '🍎', descripcion: 'Cuenta los dibujos y escribe cuántos hay.', aprende: 'Contar objetos hasta 12',
+        instrucciones: 'Cuenta los dibujos uno por uno y escribe cuántos hay con los botones. Luego pulsa OK.',
         datos: { generador: 'contar', cantidad: 8 } },
       { tipo: 'tienda', titulo: 'La tienda escolar', icono: '🛒', descripcion: 'Compra en la tienda y suma los precios.', aprende: 'Sumar precios con centenas ($100, $200…)',
         datos: { rondas: 4 } },

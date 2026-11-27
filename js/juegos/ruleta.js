@@ -71,10 +71,10 @@ AJ.registrarJuego('ruleta', {
         var b = el('button', { class: 'opcion' }, o);
         b.onclick = function () {
           if (listo) return; listo = true;
-          if (U.igual(o, q.correcta)) { b.classList.add('correcta'); ctx.acierto(q.explica); }
+          if (o === q.opciones[0]) { b.classList.add('correcta'); ctx.acierto(q.explica); }
           else {
             b.classList.add('intento');
-            ops.querySelectorAll('.opcion').forEach(function (x) { if (U.igual(x.textContent, q.correcta)) x.classList.add('correcta'); });
+            ops.querySelectorAll('.opcion').forEach(function (x) { if (x.textContent === q.opciones[0]) x.classList.add('correcta'); });
             ctx.fallo('La respuesta es ' + q.correcta + '. ' + (q.explica || ''));
           }
           hechas++; ctx.avance();

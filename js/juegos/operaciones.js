@@ -64,12 +64,15 @@
     instrucciones: 'Resuelve la operación y escribe tu respuesta con los botones. Luego pulsa OK.',
     iniciar: function (area, datos, ctx) {
       var el = ctx.el, total = datos.cantidad || 8, i = 0, vistos = {};
-      ctx.total(total);
       var ejercicios = [];
       for (var t = 0; ejercicios.length < total && t < 300; t++) {
         var g = AJ.generadores.crear(datos.generador);
-        if (!vistos[g.texto]) { vistos[g.texto] = 1; ejercicios.push(g); }
+        // Se compara la pregunta, los dibujos y la respuesta: en "Cuenta los objetos"
+        // la pregunta siempre es "¿Cuántos hay?" y lo que cambia son los dibujos.
+        var clave = g.texto + "|" + (g.visual || "") + "|" + g.respuesta;
+        if (!vistos[clave]) { vistos[clave] = 1; ejercicios.push(g); }
       }
+      ctx.total(ejercicios.length);
       function jugar() {
         area.innerHTML = '';
         var g = ejercicios[i], fallos = 0, listo = false;
@@ -82,12 +85,9 @@
             ctx.acierto(g.explica); ctx.avance();
             siguiente(g.explica);
           } else {
+            // No se pasa a la siguiente hasta acertar: se borra y se vuelve a intentar.
             fallos++;
-            if (fallos >= 2) {
-              listo = true; tecl.quitar();
-              ctx.fallo('La respuesta es ' + (typeof g.respuesta === 'number' ? U.num(g.respuesta) : g.respuesta) + '. ' + g.explica);
-              ctx.avance(); siguiente(g.explica, true);
-            } else { tecl.limpiar(); ctx.fallo('Revisa tu cuenta con calma e inténtalo otra vez.'); }
+            tecl.limpiar(); ctx.fallo('Revisa tu cuenta con calma e inténtalo otra vez.');
           }
         });
         var largo = g.texto.length > 22;
@@ -173,9 +173,10 @@
           if (listo) return;
           if (esCorrecta(v, paso.r)) {
             listo = true; tecl.quitar(); ctx.acierto(paso.explica); ctx.avance(); seguir(paso.explica);
-          } else if (++fallos >= 2) {
-            listo = true; tecl.quitar(); ctx.fallo('Era ' + U.pesos(paso.r) + '. ' + paso.explica); ctx.avance(); seguir(paso.explica, true);
-          } else { tecl.limpiar(); ctx.fallo('Revisa los precios y vuelve a calcular.'); }
+          } else {
+            // No se pasa a la siguiente hasta acertar: se borra y se vuelve a intentar.
+            fallos++; tecl.limpiar(); ctx.fallo('Revisa los precios y vuelve a calcular.');
+          }
         });
         area.appendChild(el('div', { class: 'centro' }, [
           estante,

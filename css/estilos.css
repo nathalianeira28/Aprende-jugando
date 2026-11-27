@@ -210,12 +210,13 @@ main#pantalla { position: relative; z-index: 1; padding: 1.2rem clamp(1rem, 3vw,
 .marcador .dato.no { color: var(--naranja); background: #fff4e6; }
 .barra-progreso { flex: 1; min-width: 160px; height: 18px; background: #e9ecef; border-radius: 99px; overflow: hidden; }
 .barra-progreso div { height: 100%; width: 0; background: linear-gradient(90deg, var(--amarillo), var(--verde)); border-radius: 99px; transition: width .4s; }
-.area-juego { padding: 1.5rem; min-height: 420px; }
+.area-juego { padding: 1.5rem; min-height: 420px; overflow-x: auto; }
 
 /* ---------- Mensajes de retroalimentación ---------- */
 .mensaje {
   position: fixed; left: 50%; bottom: 2rem; transform: translate(-50%, 160%);
-  z-index: 50; background: #fff; border-radius: 24px; padding: 1rem 1.6rem; max-width: min(92vw, 720px);
+  /* width: max-content evita que el letrero quede limitado a la mitad de la pantalla (por el left: 50%) */
+  z-index: 50; background: #fff; border-radius: 24px; padding: 1rem 1.6rem; width: max-content; max-width: min(92vw, 720px); box-sizing: border-box;
   box-shadow: 0 16px 40px rgba(0,0,0,.25); font-size: 1.35rem; font-weight: 700;
   display: flex; align-items: center; gap: 1rem; transition: transform .35s cubic-bezier(.3,1.6,.6,1), opacity .25s;
   border: 5px solid var(--verde); opacity: 0; pointer-events: none;
@@ -261,7 +262,7 @@ main#pantalla { position: relative; z-index: 1; padding: 1.2rem clamp(1rem, 3vw,
    ========================================================= */
 .centro { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; text-align: center; }
 .pregunta-grande { font-size: clamp(1.5rem, 2.6vw, 2.3rem); font-weight: 800; max-width: 1000px; line-height: 1.35; }
-.visual-grande { font-size: clamp(2.6rem, 5vw, 4.5rem); line-height: 1.2; letter-spacing: .2rem; }
+.visual-grande { font-size: clamp(2.6rem, 5vw, 4.5rem); line-height: 1.2; letter-spacing: .2rem; max-width: 100%; overflow-wrap: anywhere; line-break: anywhere; }
 .lectura { background: #f8f9fa; border-left: 8px solid var(--color); border-radius: 16px; padding: 1rem 1.3rem; font-size: 1.25rem; line-height: 1.6; max-width: 900px; text-align: left; }
 .opciones { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; width: 100%; max-width: 1000px; }
 .opcion {
@@ -288,7 +289,7 @@ main#pantalla { position: relative; z-index: 1; padding: 1.2rem clamp(1rem, 3vw,
 .ficha.arrastrando { opacity: .4; }
 
 /* ---------- Memoria ---------- */
-.tablero-memoria { display: grid; gap: .9rem; width: 100%; max-width: 980px; margin: 0 auto; }
+.tablero-memoria { display: grid; grid-template-columns: repeat(var(--cols, 4), 1fr); gap: .9rem; width: 100%; max-width: 980px; margin: 0 auto; }
 .carta { aspect-ratio: 1 / 1; perspective: 800px; border: 0; background: none; padding: 0; }
 .carta .interior { position: relative; width: 100%; height: 100%; transition: transform .45s; transform-style: preserve-3d; }
 .carta.volteada .interior, .carta.pareja .interior { transform: rotateY(180deg); }
@@ -415,6 +416,7 @@ main#pantalla { position: relative; z-index: 1; padding: 1.2rem clamp(1rem, 3vw,
 
 /* ---------- Teclado ---------- */
 .objetivo-teclado { font-family: var(--fuente-titulo); font-size: clamp(2.2rem, 5vw, 4rem); letter-spacing: .4rem; }
+.objetivo-teclado .palabra-teclado { display: inline-block; white-space: nowrap; }
 .objetivo-teclado .hecha { color: var(--verde); }
 .objetivo-teclado .sig { text-decoration: underline; text-decoration-color: var(--amarillo); text-decoration-thickness: 8px; }
 .teclado-virtual { display: flex; flex-direction: column; gap: .4rem; align-items: center; }
@@ -432,4 +434,51 @@ main#pantalla { position: relative; z-index: 1; padding: 1.2rem clamp(1rem, 3vw,
   .btn-icono span { display: none; }
   .relacionar { gap: 1rem; }
   .cifras { grid-template-columns: 1fr; }
+}
+
+/* ---------- Celulares (pantallas angostas) ---------- */
+@media (max-width: 600px) {
+  main#pantalla { padding: .7rem .5rem 2rem; }
+  /* Barra superior compacta: logo y botones arriba, la ruta en una sola línea debajo */
+  #barra { gap: .4rem .6rem; padding: .4rem .7rem; }
+  .barra-logo { font-size: 1.05rem; }
+  .barra-logo img { width: 2rem; height: 2rem; }
+  .barra-acciones { margin-left: auto; gap: .35rem; }
+  .btn-icono { padding: .3rem .55rem; border-radius: 12px; }
+  #migas { order: 3; flex: 1 0 100%; flex-wrap: nowrap; overflow-x: auto; font-size: .85rem; gap: .25rem; padding-bottom: 2px; scrollbar-width: none; }
+  #migas a, #migas .actual { padding: .25rem .6rem; white-space: nowrap; }
+  /* Cabecera del juego, instrucciones y marcador más compactos */
+  .juego-cabecera { padding: .7rem 1rem; gap: .5rem; }
+  .juego-cabecera h1 { font-size: 1.35rem; }
+  .juego-cabecera .aprende-j { font-size: .85rem; }
+  .juego-cabecera .derecha { margin-left: 0; gap: .4rem; }
+  .juego-cabecera .btn { font-size: .8rem; padding: .4rem .75rem; }
+  .instrucciones { font-size: .98rem; padding: .6rem 1rem; gap: .5rem; }
+  .instrucciones .bombillo { font-size: 1.3rem; }
+  .marcador { gap: .4rem; padding: .6rem 1rem; }
+  .marcador .dato { font-size: .85rem; padding: .25rem .65rem; }
+  .barra-progreso { order: 5; flex-basis: 100%; height: 12px; }
+  .area-juego { padding: 1rem .6rem; min-height: 0; }
+  /* Memoria: 3 o 4 columnas para que las cartas se puedan tocar bien */
+  .tablero-memoria { grid-template-columns: repeat(var(--cols-movil, 3), 1fr); gap: .6rem; }
+  .carta .frente { font-size: 1rem; }
+  /* Sopa de letras y crucigrama: las casillas se achican según cuántas columnas haya */
+  .sopa { gap: 2px; padding: 6px; border-radius: 14px; }
+  .sopa .celda { width: min(36px, calc((100vw - 3.6rem) / var(--tam, 10) - 2px)); border-radius: 6px; font-size: min(1.2rem, calc((100vw - 3.6rem) / var(--tam, 10) * .55)); }
+  .cruci { gap: 2px; }
+  .cruci .c { width: min(36px, calc((100vw - 2.6rem) / var(--cols, 10) - 2px)); }
+  .cruci .c.letra { border-width: 2px; border-radius: 4px; }
+  .cruci .c input { font-size: min(1.1rem, calc((100vw - 2.6rem) / var(--cols, 10) * .6)); }
+  .cruci .c .num { font-size: .5rem; }
+  .cruci-contenedor, .sopa-contenedor { gap: 1rem; }
+  /* Relacionar: dos columnas que no se salen aunque las palabras sean largas */
+  .relacionar { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .6rem; }
+  .relacionar .ficha { font-size: 1rem; min-height: 3.2rem; padding: .5rem .6rem; overflow-wrap: anywhere; hyphens: auto; }
+  .relacionar .ficha .grande { font-size: 1.7rem; }
+  /* Teclado virtual de Tecnología: 10 teclas que caben en la pantalla */
+  .teclado-virtual .fila { gap: .2rem; }
+  .teclado-virtual button { width: calc((100vw - 3.4rem) / 10 - .2rem); height: 44px; font-size: 1.05rem; border-radius: 8px; }
+  .teclado-virtual button.espacio { width: 70%; }
+  .objetivo-teclado { font-size: 1.8rem; letter-spacing: .15rem; }
+  .objetivo-teclado .palabra-teclado span { white-space: pre; }
 }

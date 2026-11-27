@@ -28,8 +28,9 @@
       var vistos = {};
       for (var i = 0, intentos = 0; lista.length < (datos.cantidad || 8) && intentos < 200; intentos++) {
         var g = AJ.generadores.crear(datos.generador);
-        if (vistos[g.texto]) continue;
-        vistos[g.texto] = 1;
+        var clave = g.texto + "|" + (g.visual || "") + "|" + g.respuesta;
+        if (vistos[clave]) continue;
+        vistos[clave] = 1;
         var resp = typeof g.respuesta === 'number' ? U.num(g.respuesta) : String(g.respuesta);
         var ops = AJ.generadores.opciones(g.respuesta);
         lista.push({ visual: g.visual, texto: g.texto + (datos.sinIgual || /[¿?]/.test(g.texto) ? '' : ' = ¿?'), correcta: resp, opciones: ops, explica: g.explica });
@@ -74,7 +75,7 @@
         var b = el('button', { class: 'opcion' }, op);
         b.addEventListener('click', function () {
           if (bloqueado || b.disabled) return;
-          if (U.igual(op, q.correcta)) {
+          if (op === q.opciones[0]) { // la primera opción es la correcta (exacta, con tildes)
             bloqueado = true;
             b.classList.add('correcta');
             if (q.texto.indexOf('___') >= 0) { var h = enunciado.querySelector('.hueco'); if (h) h.textContent = op; }
@@ -85,7 +86,7 @@
             b.classList.add('intento'); b.disabled = true;
             if (fallos >= 2 || q.opciones.length <= 2) {
               bloqueado = true;
-              cajaOps.querySelectorAll('.opcion').forEach(function (x) { if (U.igual(x.textContent, q.correcta)) x.classList.add('correcta'); });
+              cajaOps.querySelectorAll('.opcion').forEach(function (x) { if (x.textContent === q.opciones[0]) x.classList.add('correcta'); });
               ctx.fallo('La respuesta es: ' + q.correcta + '. ' + (q.explica || ''));
               siguiente(q.explica, true);
             } else {

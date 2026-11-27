@@ -26,8 +26,14 @@ AJ.registrarJuego('teclado', {
     function pintar() {
       var w = lista[k];
       objetivo.innerHTML = '';
+      // Cada palabra va en su propio grupo para que, en pantallas angostas,
+      // la frase baje de línea entre palabras y nunca en medio de una.
+      var grupo = null;
       w.split('').forEach(function (l, i) {
-        objetivo.appendChild(el('span', { class: i < pos ? 'hecha' : (i === pos ? 'sig' : '') }, l === ' ' ? '  ' : l));
+        var letra = el('span', { class: i < pos ? 'hecha' : (i === pos ? 'sig' : '') }, l === ' ' ? '  ' : l);
+        if (l === ' ') { grupo = null; objetivo.appendChild(letra); objetivo.appendChild(document.createTextNode('​')); return; }
+        if (!grupo) { grupo = el('span', { class: 'palabra-teclado' }); objetivo.appendChild(grupo); }
+        grupo.appendChild(letra);
       });
       Object.keys(teclas).forEach(function (t) { teclas[t].classList.remove('siguiente'); });
       var sig = w[pos];
